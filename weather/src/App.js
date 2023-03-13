@@ -15,6 +15,9 @@ import WeatherButton from './components/WeatherButton';
 // 6. 데이터를 들고오는 동안 로딩 스피너가 돈다.
 
 function App() {
+  // weather의 초기값이 null 처음 ui를 그릴 때 null값을 인식을 못함 ! &&연산자 사용
+  const [weather, setWeather] = useState(null);
+
   // 현재위치 호출 함수
   const getCurrentLocation= () => {
     // 자바스크립트 문서 참고 (현재위치 )
@@ -25,12 +28,13 @@ function App() {
       
     });
   }
-  // api 호출 함수
+  // api 호출 함수 - 유닛을 추가할수 있음
   const getWeatherByCurrentLocation = async(lat, lon) => {
-    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=5e0b6fefbcb22aa7d9f241571b406f98`
+    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=5e0b6fefbcb22aa7d9f241571b406f98&units=metric`
     let response = await fetch(url);
     let data = await response.json();
-    console.log(data);
+    // 날씨 데이터를 넣어줌 state에
+    setWeather(data);
   }
 
 
@@ -41,7 +45,7 @@ function App() {
   return (
     <div className="App">
       <div className='container'>
-      <WeatherBox/>
+      <WeatherBox weather={weather} />
       <WeatherButton/>
       </div>
       
