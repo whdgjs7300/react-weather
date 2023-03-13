@@ -1,5 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
+import {useEffect, useState} from 'react';
+
 
 
 // 1. 앱이 실행되자마자 현재위치 기반의 날씨가 보인다
@@ -10,6 +12,27 @@ import './App.css';
 // 6. 데이터를 들고오는 동안 로딩 스피너가 돈다.
 
 function App() {
+  // 현재위치 호출 함수
+  const getCurrentLocation= () => {
+    // 자바스크립트 문서 참고 (현재위치 )
+    navigator.geolocation.getCurrentPosition((positon)=>{
+      let lat = positon.coords.latitude;
+      let lon = positon.coords.longitude;
+      getWeatherByCurrentLocation(lat,lon)
+    });
+  }
+  const getWeatherByCurrentLocation = async(lat, lon) => {
+    let url = `https:api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid={5e0b6fefbcb22aa7d9f241571b406f98}`
+    let response = await fetch(url);
+    let data = await response.json();
+    console.log(data);
+  }
+
+
+  useEffect(()=>{
+    getCurrentLocation()
+  },[])
+
   return (
     <div className="App">
       hihihihi
