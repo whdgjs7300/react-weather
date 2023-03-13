@@ -1,6 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {useEffect, useState} from 'react';
+import WeatherBox from './components/WeatherBox';
+import WeatherButton from './components/WeatherButton';
 
 
 
@@ -19,10 +22,12 @@ function App() {
       let lat = positon.coords.latitude;
       let lon = positon.coords.longitude;
       getWeatherByCurrentLocation(lat,lon)
+      
     });
   }
+  // api 호출 함수
   const getWeatherByCurrentLocation = async(lat, lon) => {
-    let url = `https:api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid={5e0b6fefbcb22aa7d9f241571b406f98}`
+    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=5e0b6fefbcb22aa7d9f241571b406f98`
     let response = await fetch(url);
     let data = await response.json();
     console.log(data);
@@ -35,7 +40,11 @@ function App() {
 
   return (
     <div className="App">
-      hihihihi
+      <div className='container'>
+      <WeatherBox/>
+      <WeatherButton/>
+      </div>
+      
     </div>
   );
 }

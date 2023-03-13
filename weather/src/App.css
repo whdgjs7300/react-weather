@@ -1,0 +1,23 @@
+
+body {
+  background : url(https://png.pngtree.com/thumb_back/fh260/back_our/20190628/ourmid/pngtree-hand-drawn-blue-sky-white-clouds-weather-forecast-illustration-background-image_270899.jpg);  
+  height: 100vh;
+  background-repeat: no;
+  background-size: cover;
+}
+
+.container {
+  /* 정렬이 됐는데도 위치가 변하지 않으면 div 박스의 크기를 살펴봐야한다 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.weather-box {
+  border: 3px solid skyblue;
+  padding: 50px;
+  border-radius: 30px;
+  background-color: azure;
+}
