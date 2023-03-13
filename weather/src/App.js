@@ -17,6 +17,7 @@ import WeatherButton from './components/WeatherButton';
 function App() {
   // weather의 초기값이 null 처음 ui를 그릴 때 null값을 인식을 못함 ! &&연산자 사용
   const [weather, setWeather] = useState(null);
+  const cities = ['paris','new york', 'tokyo', 'seoul']
 
   // 현재위치 호출 함수
   const getCurrentLocation= () => {
@@ -46,7 +47,7 @@ function App() {
     <div className="App">
       <div className='container'>
       <WeatherBox weather={weather} />
-      <WeatherButton/>
+      <WeatherButton cities={cities} />
       </div>
       
     </div>
