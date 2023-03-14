@@ -1,7 +1,7 @@
 
 
 const WeatherBox = ({weather }) => {
-    console.log(weather)
+
 
     return ( 
         <div className="weather-box">

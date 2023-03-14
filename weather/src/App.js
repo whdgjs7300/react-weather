@@ -18,6 +18,7 @@ function App() {
   // weather의 초기값이 null 처음 ui를 그릴 때 null값을 인식을 못함 ! &&연산자 사용
   const [weather, setWeather] = useState(null);
   const cities = ['paris','new york', 'tokyo', 'seoul']
+  const [city, setCity] =useState('');
 
   // 현재위치 호출 함수
   const getCurrentLocation= () => {
@@ -39,15 +40,27 @@ function App() {
   }
 
 
+  const getWeatherBycity = async () => {
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=5e0b6fefbcb22aa7d9f241571b406f98&units=metric`
+    let response = await fetch(url);
+    let data = await response.json();
+    console.log(data);
+  }
+
+
   useEffect(()=>{
     getCurrentLocation()
   },[])
+
+  useEffect(()=>{
+    getWeatherBycity()
+  },[city]);
 
   return (
     <div className="App">
       <div className='container'>
       <WeatherBox weather={weather} />
-      <WeatherButton cities={cities} />
+      <WeatherButton cities={cities} setCity = {setCity} />
       </div>
       
     </div>
