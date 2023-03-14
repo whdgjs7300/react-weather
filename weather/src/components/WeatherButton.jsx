@@ -12,7 +12,7 @@ const WeatherButton = ({cities, setCity}) => {
             
             {
                 cities.map((item,i)=>{
-                    return <Button onClick={()=> setCity(item)} variant='warning'>{item}</Button>
+                    return <Button key={item} onClick={()=> setCity(item)} variant='warning'>{item}</Button>
                 })
             }
         </div>

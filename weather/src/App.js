@@ -39,22 +39,34 @@ function App() {
     setWeather(data);
   }
 
-
+  // 도시 이름별 데이터를 따로 가져옴
   const getWeatherBycity = async () => {
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=5e0b6fefbcb22aa7d9f241571b406f98&units=metric`
     let response = await fetch(url);
     let data = await response.json();
-    console.log(data);
+    setWeather(data);
   }
 
-
+// 중요 포인트
   useEffect(()=>{
-    getCurrentLocation()
-  },[])
+    // city가 빈값이면 처음 useEffect 실행
+    if(city == "") {
+      getCurrentLocation()
+    }
+    // 빈값이 아니면 클릭을 했을 때 밑에 함수 실행
+    else {
+      getWeatherBycity()
+    }
+    
+  },[city])
 
-  useEffect(()=>{
-    getWeatherBycity()
-  },[city]);
+  // 기존 city 값이 빈값이라 새로고침 오류가 뜸(useEffect 실행 방식 오류-)
+  // UI가 그려지고 위에 useEffect 실행 후 밑에 useEffect 실행
+  // 밑에 이펙트는 실행이 안되고 위에 유즈 이펙트가 실행되게 함 - 하나로 합쳐줌
+
+  // useEffect(()=>{
+  //    getWeatherBycity()
+  //   },[city]);
 
   return (
     <div className="App">
