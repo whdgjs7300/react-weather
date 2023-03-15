@@ -18,9 +18,10 @@ import ClipLoader from "react-spinners/ClipLoader";
 function App() {
   // weather의 초기값이 null 처음 ui를 그릴 때 null값을 인식을 못함 ! &&연산자 사용
   const [weather, setWeather] = useState(null);
-  const cities = ['paris','new york', 'tokyo', 'seoul']
+  const cities = ['now','paris','new york', 'tokyo', 'seoul'];
   const [city, setCity] =useState('');
   const [loading,setLoading] = useState(false);
+  
 
   // 현재위치 호출 함수
   const getCurrentLocation= () => {
@@ -56,7 +57,9 @@ function App() {
 // 중요 포인트
   useEffect(()=>{
     // city가 빈값이면 처음 useEffect 실행
-    if(city == "") {
+    if(city == "" ) {
+      getCurrentLocation()
+    }else if(city == 'now'){
       getCurrentLocation()
     }
     // 빈값이 아니면 클릭을 했을 때 밑에 함수 실행
