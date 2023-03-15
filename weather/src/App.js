@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {useEffect, useState} from 'react';
 import WeatherBox from './components/WeatherBox';
 import WeatherButton from './components/WeatherButton';
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 
@@ -19,6 +20,7 @@ function App() {
   const [weather, setWeather] = useState(null);
   const cities = ['paris','new york', 'tokyo', 'seoul']
   const [city, setCity] =useState('');
+  const [loading,setLoading] = useState(false);
 
   // 현재위치 호출 함수
   const getCurrentLocation= () => {
@@ -33,18 +35,22 @@ function App() {
   // api 호출 함수 - 유닛을 추가할수 있음
   const getWeatherByCurrentLocation = async(lat, lon) => {
     let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=5e0b6fefbcb22aa7d9f241571b406f98&units=metric`
+    setLoading(true);
     let response = await fetch(url);
     let data = await response.json();
     // 날씨 데이터를 넣어줌 state에
     setWeather(data);
+    setLoading(false);
   }
 
   // 도시 이름별 데이터를 따로 가져옴
   const getWeatherBycity = async () => {
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=5e0b6fefbcb22aa7d9f241571b406f98&units=metric`
+    setLoading(true);
     let response = await fetch(url);
     let data = await response.json();
     setWeather(data);
+    setLoading(false);
   }
 
 // 중요 포인트
@@ -70,10 +76,23 @@ function App() {
 
   return (
     <div className="App">
+      {loading ? ( 
+      <div className='container'>
+      <ClipLoader
+        color="#f88c6b"
+        loading={loading}
+        size={150}
+      /> 
+      </div>
+      )
+    :(
       <div className='container'>
       <WeatherBox weather={weather} />
       <WeatherButton cities={cities} setCity = {setCity} />
       </div>
+    )    
+  }
+
       
     </div>
   );
