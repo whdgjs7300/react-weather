@@ -22,6 +22,15 @@ function App() {
   const [city, setCity] =useState('');
   const [loading,setLoading] = useState(false);
   
+  // 2번째 방법
+  // 프랍값으로 웨더버튼에 넘겨서 인자값으로 사용
+  const handleCityChange =(city) => {
+    if(city == "current"){
+      setCity(null);
+    } else {
+      setCity(city);
+    }
+  }
 
   // 현재위치 호출 함수
   const getCurrentLocation= () => {
